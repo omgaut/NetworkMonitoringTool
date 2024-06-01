@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" 
+    type="text/css"
+    href="style.css"/>
+
+    <title>Packet Capture</title>
+
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
+    <!-- Code that makes the graph -->
+    <script type="text/javascript">
+        window.onload = function() {
+            var dataPoints = [];
+        
+            function getDataPointsFromCSV(csv) {
+                var dataPoints = csvLines = points = [];
+                csvLines = csv.split(/[\r?\n|\r|\n]+/);         
+                    
+                for (var i = 0; i < csvLines.length; i++)
+                    if (csvLines[i].length > 0) {
+                        points = csvLines[i].split(",");
+                        dataPoints.push({ 
+                            x: parseFloat(points[3]), 
+                            y: parseFloat(points[5]) 		
+                        });
+                    }
+                return dataPoints;
+            }
+        
+        $.get("data.csv", function(data) {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Packet Length Based On Destination Port",
+                },
+                data: [{
+                    type: "bar",
+                    dataPoints: getDataPointsFromCSV(data)
+                }]
+            });
+            
+            chart.render();
+
+        });
+    }
+    </script>
+</head>
+
+<body>    
+    <h1>Captured Packet Data</h1>
+    <!-- Add code here to display above line chart -->
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+    
+<br>
+
+    <!-- Code that displays table based of csv file -->
+    <div class="tableContainer">
+        <script src="create-table.js"></script>
+    </div>
+
+    <!-- Displays line graph -->
+    <div id="chartContainer" style="width:100%; height:400px;"></div>
+
+    <br>
+
+    <h2>Table of Captured Data</h2>
+
+    <br>
+
+</body>
+
+</html>

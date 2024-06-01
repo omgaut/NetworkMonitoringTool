@@ -1,0 +1,20 @@
+h1{
+    color:rgb(0, 0, 0);
+    display:flex;
+    justify-content: center;
+}
+h2{
+    color:rgb(0, 0, 0);
+    display:flex;
+    justify-content: center;
+}
+body{
+    background-color: rgb(160, 205, 235);
+}
+.tableContainer{
+    display:flex;
+    justify-content: center; 
+}
+
+
+
